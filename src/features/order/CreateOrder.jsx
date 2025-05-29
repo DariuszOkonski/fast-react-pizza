@@ -41,7 +41,6 @@ function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
-
   return (
     <div>
       <h2>Ready to order? Let&apos;s go!</h2>
@@ -79,8 +78,13 @@ function CreateOrder() {
         </div>
 
         <div>
-          <input type="hidden" name='cart' value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>{isSubmitting ? 'Placing order...' : 'Order now'}</button>
+          <input type='hidden' name='cart' value={JSON.stringify(cart)} />
+          <button
+            disabled={isSubmitting}
+            className='bg-yellow-400 uppercase font-semibold text-stone-800 py-3 px-4 inline-block tracking-wide rounded-full hover:bg-yellow-300 transition-colors duration-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:bg-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed'
+          >
+            {isSubmitting ? 'Placing order...' : 'Order now'}
+          </button>
         </div>
       </Form>
     </div>
@@ -88,29 +92,30 @@ function CreateOrder() {
 }
 
 export async function action({ request }) {
-  const formData = await request.formData()
-  const data = Object.fromEntries(formData)
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
 
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
-    priority: data.priority === 'on'
-  }
+    priority: data.priority === 'on',
+  };
 
   const errors = {};
-  
+
   if (!isValidPhone(order.phone)) {
-    errors.phone = 'Please give us your correct phone number. We might need it to contact you.'
+    errors.phone =
+      'Please give us your correct phone number. We might need it to contact you.';
   }
-  
-  if(Object.keys(errors).length > 0) {
+
+  if (Object.keys(errors).length > 0) {
     return errors;
   }
-  
 
   // if everything is okay, create new order and redirect
-  const newOrder = await createOrder(order);
-  return redirect(`/order/${newOrder.id}`)
+  // const newOrder = await createOrder(order);
+  // return redirect(`/order/${newOrder.id}`);
+  return null;
 }
 
 export default CreateOrder;
