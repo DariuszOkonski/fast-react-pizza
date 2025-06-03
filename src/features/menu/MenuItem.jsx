@@ -8,7 +8,7 @@ function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   return (
-    <li className='flex gap-4 py-2'>
+    <li className='flex gap-4 py-2 pt-0.5'>
       <img
         src={imageUrl}
         alt={name}
@@ -28,7 +28,7 @@ function MenuItem({ pizza }) {
             </p>
           )}
 
-          <Button>Add to cart</Button>
+          <Button type='small'>Add to cart</Button>
         </div>
       </div>
     </li>
