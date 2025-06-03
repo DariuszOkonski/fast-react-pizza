@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
+import LinkButton from '../../ui/LinkButton';
 
 const fakeCart = [
   {
@@ -30,12 +31,12 @@ function Cart() {
 
   return (
     <div>
-      <Link
+      <LinkButton
         to='/menu'
         className='text-sm text-blue-500 hover:text-blue-600 hover:underline'
       >
         &larr; Back to menu
-      </Link>
+      </LinkButton>
 
       <h2>Your cart, %NAME%</h2>
 
