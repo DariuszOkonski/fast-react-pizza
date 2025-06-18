@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import Button from '../../ui/Button';
 import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
@@ -8,6 +8,7 @@ import { createOrder } from '../../services/apiRestaurant';
 import store from '../../store';
 import { formatCurrency } from '../../utils/helpers';
 import { useState } from 'react';
+import { fetchAddress } from '../user/userSlice';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -21,6 +22,7 @@ function CreateOrder() {
   const isSubmitting = navigation.state === 'submitting';
 
   const formErrors = useActionData();
+  const dispatch = useDispatch();
 
   const [withPriority, setWithPriority] = useState(false);
 
@@ -38,6 +40,8 @@ function CreateOrder() {
       <h2 className='text-xl font-semibold mb-8'>
         Ready to order? Let&apos;s go!
       </h2>
+
+      <button onClick={() => dispatch(fetchAddress())}>Get position</button>
 
       <Form method='POST' action='/order/new'>
         <div className='mb-5 flex gap-2 flex-col sm:flex-row sm:items-center'>
